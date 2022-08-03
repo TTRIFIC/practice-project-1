@@ -9,6 +9,7 @@ const AddUser = (props) => {
   // Storing input as state values
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
+  const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     // Preventing page refresh / fetching new HTML data
@@ -16,9 +17,17 @@ const AddUser = (props) => {
 
     // Input validation. + in front of enteredAge forces string to number conversion
     if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+      setError({
+        title: "Invalid Input",
+        message: "Please enter a valid name and age (non-empty values).",
+      });
       return;
     }
     if (+enteredAge < 1) {
+      setError({
+        title: "Invalid age",
+        message: "Please enter an age greater than or equal to 1.",
+      });
       return;
     }
 
@@ -37,11 +46,20 @@ const AddUser = (props) => {
   const ageChangeHandler = (event) => {
     setEnteredAge(event.target.value);
   };
+  const errorHandler = () => {
+    setError(null);
+  };
 
   // Value props required for being able to reset input fields.
   return (
     <div>
-      <ErrorModal title="Invalid Input" message="Please check your inputs" />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">Username</label>
