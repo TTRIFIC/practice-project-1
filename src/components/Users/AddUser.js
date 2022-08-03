@@ -7,6 +7,8 @@ import Wrapper from "../Helpers/Wrapper";
 import classes from "./AddUser.module.css";
 
 const AddUser = (props) => {
+  // Instad of using state, values can be stored as Refs. Essentially they are
+  // entire HTML/DOM components that contain many attributes.
   const nameInputRef = useRef();
   const ageInputRef = useRef();
 
