@@ -46,6 +46,7 @@ const AddUser = (props) => {
   const ageChangeHandler = (event) => {
     setEnteredAge(event.target.value);
   };
+  // Tracking if the error modal should be displayed
   const errorHandler = () => {
     setError(null);
   };
